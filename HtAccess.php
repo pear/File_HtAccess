@@ -38,7 +38,7 @@ require_once 'PEAR.php' ;
 *
 * $h = new File_HtAccess('.htaccess');
 * $h->load();
-* $h->setAddRequire('newuser');
+* $h->addRequire('newuser');
 * $h->save();
 *
 * Example 3 (creating a new file):

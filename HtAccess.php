@@ -351,8 +351,6 @@ class File_HtAccess {
         $str .= 'Require ' . $this->getRequire('string') . "\n";
         $str .= $this->getAdditional('string') . "\n";
         
-        print $str . "\n\n";
-
         $fd = @fopen($this->getFile(), 'w');
         if ($fd) {
             fwrite($fd, $str, strlen($str));

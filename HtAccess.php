@@ -55,7 +55,8 @@ require_once 'PEAR.php' ;
 * @author  Mika Tuupola <tuupola@appelsiini.net>
 * @access  public
 * @version 1.0.0
-* @package File
+* @package File_HtAccess
+* @category File
 */
 
 class File_HtAccess {

@@ -1,5 +1,0 @@
-* setPhpFlag(), getPhpFlag(), getPhpValue() and setPhpValue() methods?
-  These can currently be handled via setAdditional() but could be considered
-  as a nice addition (or bloat).
-
-* Consider using file locking ala File_Passwd

@@ -47,7 +47,7 @@ require_once 'PEAR.php' ;
 *
 * @author  Mika Tuupola <tuupola@appelsiini.net>
 * @access  public
-* @version 0.9.0
+* @version 0.9.1
 * @package File
 */
 
@@ -133,7 +133,7 @@ class File_HtAccess {
     function setProperties($params) {
         if (is_array($params)) {
             foreach ($params as $key => $value) {
-                $method = set . $key;
+                $method = 'set' . $key;
                 $this->$method($value);
             }
         }
@@ -200,6 +200,27 @@ class File_HtAccess {
         } else {
             $this->require = explode(' ', $require);
         }
+    }
+
+    /**
+    * Add a value to require property
+    *
+    * @access public
+    * @param  string $require
+    */
+    function addRequire($require) {
+        $this->require[] = $require;
+    }
+
+    /**
+    * Delete a value from require property
+    *
+    * @access public
+    * @param  string $require
+    */
+    function delRequire($require) {
+        $pos = array_search($require, $this->require);
+        unset($this->require[$pos]);
     }
 
     /**

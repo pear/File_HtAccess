@@ -27,14 +27,21 @@ require_once 'PEAR.php' ;
 * A class which provided common methods to manipulate Apache / NCSA
 * style .htaccess files.
 *
-* Example 1:
+* Example 1 (modifying existing file):
 *
 * $h = new File_HtAccess('.htaccess');
 * $h->load();
 * $h->setRequire('valid-user');
 * $h->save();
 *
-* Example 2:
+* Example 2 (modifying existing file):
+*
+* $h = new File_HtAccess('.htaccess');
+* $h->load();
+* $h->setAddRequire('newuser');
+* $h->save();
+*
+* Example 3 (creating a new file):
 *
 * $params['authname']      = 'Private';
 * $params['authtype']      = 'Basic';
@@ -47,7 +54,7 @@ require_once 'PEAR.php' ;
 *
 * @author  Mika Tuupola <tuupola@appelsiini.net>
 * @access  public
-* @version 0.9.1
+* @version 1.0.0
 * @package File
 */
 

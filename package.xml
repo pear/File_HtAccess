@@ -19,11 +19,11 @@
 
   <release>
     <license>PHP</license>
-    <version>0.9.1</version>
-    <date>2002-10-30</date>
-    <state>beta</state>
+    <version>1.0.0</version>
+    <date>2002-11-26</date>
+    <state>stable</state>
     <notes>
-      Removed debug code accidentaly left in the initial release.
+Added addRequire() and delRequire() methods. Stable release.
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="File">
@@ -33,6 +33,14 @@
   </release>
 
   <changelog>
+    <release>
+      <version>0.9.1</version>
+      <date>2002-10-30</date>
+      <state>beta</state>
+      <notes>
+        Removed debug code accidentaly left in the initial release.
+      </notes>
+    </release>
     <release>
       <version>0.9.0</version>
       <date>2002-10-28</date>

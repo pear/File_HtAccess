@@ -131,6 +131,8 @@ class File_HtAccess {
                     }
                 }
             }
+            fclose($fd);
+
         } else {
             $retval = PEAR::raiseError('Could not open ' . $this->getFile() . 
                                        ' for reading.');

@@ -65,6 +65,8 @@ class File_HtAccess {
     var $authtype;
     var $authuserfile;
     var $authgroupfile;
+    var $authdigestfile;
+    var $authdigestgroupfile;
     var $require    = array();
     var $additional = array();
 
@@ -112,10 +114,17 @@ class File_HtAccess {
                            
                     } elseif (preg_match('/AuthGroupFile/i', $data[0])) {
                        $this->setAuthGroupFile($data[1]);
+
+                    } elseif (preg_match('/AuthDigestFile/i', $data[0])) {
+                       $this->setAuthDigestFile($data[1]);
+
+                    } elseif (preg_match('/AuthDigestGroupFile/i', $data[0])) {
+                       $this->setAuthDigestGroupFile($data[1]);
                                        
                     } elseif (preg_match('/Require/i', $buffer)) {
                        $require = split(' ', $data[1]);
                        $this->setRequire($require);
+
                     } elseif (trim($buffer)) {
                        $this->addAdditional($buffer);
                     }
@@ -188,6 +197,28 @@ class File_HtAccess {
 
     function setAuthGroupFile($file='') {
         $this->authgroupfile = $file;
+    }
+
+    /**
+    * Set the value of authdigestfile property
+    *
+    * @access public
+    * @param  string $file
+    */
+
+    function setAuthDigestFile($file='') {
+        $this->authdigestfile = $file;
+    }
+
+    /**
+    * Set the value of authdigestgroupfile property
+    *
+    * @access public
+    * @param  string $file
+    */
+
+    function setAuthDigestGroupFile($file='') {
+        $this->authdigestgroupfile = $file;
     }
     
     /**
@@ -312,6 +343,28 @@ class File_HtAccess {
     }
 
     /**
+    * Get the value of authdigestfile property
+    *
+    * @access public
+    * @return string  
+    */
+
+    function getAuthDigestFile() {
+        return($this->authdigestfile);
+    }
+
+    /**
+    * Get the value of authdigestgroupfile property
+    *
+    * @access public
+    * @return string  
+    */
+
+    function getAuthDigestGroupFile() {
+        return($this->authdigestgroupfile);
+    }
+
+    /**
     * Get the value(s) of require property
     *
     * @access public
@@ -370,10 +423,17 @@ class File_HtAccess {
 
         $str  = 'AuthName '     . $this->getAuthName() . "\n";
         $str .= 'AuthType '     . $this->getAuthType() . "\n";
-        $str .= 'AuthUserFile ' . $this->getAuthUserFile() . "\n";
-        
-        if (trim($this->getAuthGroupFile())) {
-            $str .= 'AuthGroupFile ' . $this->getAuthGroupFile() . "\n";   
+
+        if ('basic' == strtolower($this->getAuthType())) {
+            $str .= 'AuthUserFile ' . $this->getAuthUserFile() . "\n";
+            if (trim($this->getAuthGroupFile())) {
+                $str .= 'AuthGroupFile ' . $this->getAuthGroupFile() . "\n";   
+            }
+        } elseif ('digest' == strtolower($this->getAuthType())) {
+            $str .= 'AuthDigestFile ' . $this->getAuthDigestFile() . "\n";
+            if (trim($this->getAuthDigestGroupFile())) {
+                $str .= 'AuthDigestGroupFile ' . $this->getAuthDigestGroupFile() . "\n";   
+            }
         }
 
         $str .= 'Require ' . $this->getRequire('string') . "\n";

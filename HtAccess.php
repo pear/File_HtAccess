@@ -68,6 +68,7 @@ class File_HtAccess {
     var $authgroupfile;
     var $authdigestfile;
     var $authdigestgroupfile;
+    var $authdigestdomain;
     var $require    = array();
     var $additional = array();
 
@@ -121,6 +122,9 @@ class File_HtAccess {
 
                     } elseif (preg_match('/AuthDigestGroupFile/i', $data[0])) {
                        $this->setAuthDigestGroupFile($data[1]);
+
+                    } elseif (preg_match('/AuthDigestDomain/i', $data[0])) {
+                       $this->setAuthDigestDomain($data[1]);
                                        
                     } elseif (preg_match('/Require/i', $buffer)) {
                        $require = split(' ', $data[1]);
@@ -220,6 +224,17 @@ class File_HtAccess {
 
     function setAuthDigestGroupFile($file='') {
         $this->authdigestgroupfile = $file;
+    }
+
+    /**
+    * Set the value of authdigestdomain property
+    *
+    * @access public
+    * @param  string $domain
+    */
+
+    function setAuthDigestDomain($domain='') {
+        $this->authdigestdomain = $domain;
     }
     
     /**
@@ -366,6 +381,17 @@ class File_HtAccess {
     }
 
     /**
+    * Get the value of authdigestdomain property
+    *
+    * @access public
+    * @return string  
+    */
+
+    function getAuthDigestDomain() {
+        return($this->authdigestdomain);
+    }
+
+    /**
     * Get the value(s) of require property
     *
     * @access public
@@ -432,6 +458,7 @@ class File_HtAccess {
             }
         } elseif ('digest' == strtolower($this->getAuthType())) {
             $str .= 'AuthDigestFile ' . $this->getAuthDigestFile() . "\n";
+            $str .= 'AuthDigestDomain ' . $this->getAuthDigestDomain() . "\n";
             if (trim($this->getAuthDigestGroupFile())) {
                 $str .= 'AuthDigestGroupFile ' . $this->getAuthDigestGroupFile() . "\n";   
             }

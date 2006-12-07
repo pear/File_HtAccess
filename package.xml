@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
 
-<package>
+<package version="1.0">
   <name>File_HtAccess</name>
   <summary>Manipulate .htaccess files</summary>
   <description>
@@ -18,22 +18,41 @@
   </maintainers>
 
   <release>
-    <license>PHP</license>
-    <version>1.1.0</version>
-    <date>2003-02-18</date>
+    <license>BSD</license>
+    <version>1.2.0</version>
+    <date>2006-12-07</date>
     <state>stable</state>
     <notes>
-* Added simple support for Digest authentication.
-* Fixed phpdoc package and category definitions
+* Added getContent() method of retrieven .htaccess contents as string.
+* Enabled recognizing of multiple require lines when calling load()
+* Licence change from PHP to BSD
     </notes>
     <filelist>
       <dir name="/" baseinstalldir="File">
          <file role="php" name="HtAccess.php" />
       </dir>
+      <dir name="tests" role="test">
+         <file role="test" name="01validuser.phpt" />
+         <file role="test" name="02user.phpt" />
+         <file role="test" name="03usermultiline.phpt" />
+         <file role="test" name="04getcontent.phpt" />
+         <file role="test" name="htaccess01" />
+         <file role="test" name="htaccess02" />
+         <file role="test" name="htaccess03" />
+      </dir>
     </filelist>
   </release>
 
   <changelog>
+    <release>
+      <version>1.1.0</version>
+      <date>2003-02-18</date>
+      <state>stable</state>
+      <notes>
+* Added simple support for Digest authentication.
+* Fixed phpdoc package and category definitions
+      </notes>
+    </release>
     <release>
       <version>1.0.0</version>
       <date>2002-11-26</date>

@@ -140,8 +140,7 @@ class File_HtAccess {
 
                     } elseif (preg_match('/Require/i', $buffer)) {
                        $require = split(' ', $data[1]);
-                       $this->setRequire($require);
-
+                       $this->addRequire($require);
                     } elseif (trim($buffer)) {
                        $this->addAdditional($buffer);
                     }
@@ -266,7 +265,15 @@ class File_HtAccess {
     * @param  string $require
     */
     function addRequire($require) {
-        $this->require[] = $require;
+        if (is_array($require)) {
+            $merge = array_merge($this->getRequire(), $require);
+            $merge = array_unique($merge);
+            $merge = array_merge($merge);
+            $this->setRequire($merge);
+        } else {
+            $this->require[] = $require;
+        }
+
     }
 
     /**

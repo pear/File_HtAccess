@@ -1,0 +1,6 @@
+AuthName "Protected"
+AuthType Basic
+AuthUserFile /usr/local/apache/conf/users.dat
+require user tuupola
+require user laane
+require user viemero

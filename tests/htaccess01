@@ -1,0 +1,4 @@
+AuthName "Protected"
+AuthType Basic
+AuthUserFile /usr/local/apache/conf/users.dat
+require valid-user

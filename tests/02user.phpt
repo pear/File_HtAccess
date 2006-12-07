@@ -5,7 +5,7 @@ File_HtAccess::load()
 /* first one for cvs */
 if (@include(dirname(__FILE__)."/../HtAccess.php")) {
     $status = ''; 
-} else if (@include('DB/HtAccess.php')) {
+} else if (@include('File/HtAccess.php')) {
     $status = ''; 
 } else {
     $status = 'skip';
@@ -17,7 +17,7 @@ print $status;
 /* first one for cvs */
 if (@include(dirname(__FILE__)."/../HtAccess.php")) {
     $status = ''; 
-} else if (@include('DB/HtAccess.php')) {
+} else if (@include('File/HtAccess.php')) {
     $status = ''; 
 } else {
     $status = 'skip';

@@ -424,8 +424,33 @@ class File_HtAccess {
 
         $retval = true;
 
-        $str  = 'AuthName '     . $this->getAuthName() . "\n";
-        $str .= 'AuthType '     . $this->getAuthType() . "\n";
+        $str  = $this->getContent();
+        
+        $fd = @fopen($this->getFile(), 'w');
+        if ($fd) {
+            fwrite($fd, $str, strlen($str));
+        } else {
+            $retval = PEAR::raiseError('Could not open ' . $this->getFile() . 
+                                       ' for writing.');
+
+        }
+
+        return($retval);
+        
+    }
+
+    /**
+    * Returns the .htaccess File content
+    *
+    * @access public
+    * @return string
+    */
+
+    function getContent() {
+
+        $str  = '';
+        if(''!=$this->getAuthName()) $str .= 'AuthName '     . $this->getAuthName() . "\n";
+        if(''!=$this->getAuthType()) $str .= 'AuthType '     . $this->getAuthType() . "\n";
 
         if ('basic' == strtolower($this->getAuthType())) {
             $str .= 'AuthUserFile ' . $this->getAuthUserFile() . "\n";
@@ -439,20 +464,10 @@ class File_HtAccess {
             }
         }
 
-        $str .= 'Require ' . $this->getRequire('string') . "\n";
+        if(''!=trim($this->getRequire('string'))) $str .= 'Require ' . $this->getRequire('string') . "\n";
         $str .= $this->getAdditional('string') . "\n";
         
-        $fd = @fopen($this->getFile(), 'w');
-        if ($fd) {
-            fwrite($fd, $str, strlen($str));
-        } else {
-            $retval = PEAR::raiseError('Could not open ' . $this->getFile() . 
-                                       ' for writing.');
-
-        }
-
-        return($retval);
-        
+        return($str);
     }
 
 }

@@ -464,26 +464,31 @@ class File_HtAccess {
 
     function getContent() {
 
-        $str  = '';
-        if(''!=$this->getAuthName()) $str .= 'AuthName '     . $this->getAuthName() . "\n";
-        if(''!=$this->getAuthType()) $str .= 'AuthType '     . $this->getAuthType() . "\n";
-
+        $retval  = '';
+        
+        if ($this->getAuthName()) {
+            $retval .= 'AuthName '     . $this->getAuthName() . "\n";
+        }
+        if ($this->getAuthType()) {
+            $retval .= 'AuthType '     . $this->getAuthType() . "\n";
+        }
         if ('basic' == strtolower($this->getAuthType())) {
-            $str .= 'AuthUserFile ' . $this->getAuthUserFile() . "\n";
+            $retval .= 'AuthUserFile ' . $this->getAuthUserFile() . "\n";
             if (trim($this->getAuthGroupFile())) {
-                $str .= 'AuthGroupFile ' . $this->getAuthGroupFile() . "\n";   
+                $retval .= 'AuthGroupFile ' . $this->getAuthGroupFile() . "\n";   
             }
         } elseif ('digest' == strtolower($this->getAuthType())) {
-            $str .= 'AuthDigestFile ' . $this->getAuthDigestFile() . "\n";
+            $retval .= 'AuthDigestFile ' . $this->getAuthDigestFile() . "\n";
             if (trim($this->getAuthDigestGroupFile())) {
-                $str .= 'AuthDigestGroupFile ' . $this->getAuthDigestGroupFile() . "\n";   
+                $retval .= 'AuthDigestGroupFile ' . $this->getAuthDigestGroupFile() . "\n";   
             }
         }
-
-        if(''!=trim($this->getRequire('string'))) $str .= 'Require ' . $this->getRequire('string') . "\n";
-        $str .= $this->getAdditional('string') . "\n";
+        if (trim($this->getRequire('string'))) {
+            $retval .= 'Require ' . $this->getRequire('string') . "\n";
+        }
+        $retval .= $this->getAdditional('string') . "\n";
         
-        return($str);
+        return($retval);
     }
 
 }

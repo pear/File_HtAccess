@@ -24,13 +24,13 @@ if (@include(dirname(__FILE__)."/../HtAccess.php")) {
 }
 print $status; 
 
-$fh = new File_HtAccess('htaccess01');
+$fh = new File_HtAccess(dirname(__FILE__) . '/htaccess01');
 $fh->load();
 print $fh->getContent();
-$fh = new File_HtAccess('htaccess02');
+$fh = new File_HtAccess(dirname(__FILE__) . '/htaccess02');
 $fh->load();
 print $fh->getContent();
-$fh = new File_HtAccess('htaccess03');
+$fh = new File_HtAccess(dirname(__FILE__) . '/htaccess03');
 $fh->load();
 print $fh->getContent();
 ?>

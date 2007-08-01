@@ -24,9 +24,10 @@ if (@include(dirname(__FILE__)."/../HtAccess.php")) {
 }
 print $status; 
 
-$fh = new File_HtAccess('htaccess03');
+$fh = new File_HtAccess(dirname(__FILE__) . '/htaccess03');
 $fh->load();
 $data = print_r($fh,1);
+$data = str_replace(dirname(__FILE__) . "/", "", $data);
 $data = str_replace("File_HtAccess", "file_htaccess", $data);
 print $data;
 ?>

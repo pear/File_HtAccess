@@ -26,7 +26,9 @@ print $status;
 
 $fh = new File_HtAccess('htaccess02');
 $fh->load();
-print_r($fh);
+$data = print_r($fh,1);
+$data = str_replace("File_HtAccess", "file_htaccess", $data);
+print $data;
 ?>
 --GET--
 --POST--

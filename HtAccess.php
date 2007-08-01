@@ -3,7 +3,7 @@
 
 /*
 +-----------------------------------------------------------------------+
-| Copyright (c) 2002-2006 Mika Tuupola                                  |
+| Copyright (c) 2002-2007 Mika Tuupola                                  |
 | All rights reserved.                                                  |
 |                                                                       |
 | Redistribution and use in source and binary forms, with or without    |

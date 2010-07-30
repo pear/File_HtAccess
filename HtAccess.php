@@ -92,17 +92,17 @@ class File_HtAccess {
     *
     * @access public
     * @param  string $file
-    * @param  array  $params 
+    * @param  array  $params
     * @return object File_HtAccess
     */
-       
+
     function File_HtAccess($file='.htaccess', $params='') {
 
         $this->file = $file;
         $this->setProperties($params);
 
     }
-    
+
     /**
     * Load the given .htaccess file
     *
@@ -113,22 +113,22 @@ class File_HtAccess {
     function load() {
 
         $retval = true;
-        
+
         $fd = @fopen($this->getFile(), 'r');
         if ($fd) {
             while ($buffer = fgets($fd, 4096)) {
                 $buffer = trim($buffer);
                 if ($buffer) {
-                    $data = split(' ', $buffer, 2);
+                    $data = explode(' ', $buffer, 2);
                     if (preg_match('/AuthName/i', $data[0])) {
                        $this->setAuthName($data[1]);
 
                     } elseif (preg_match('/AuthType/i', $data[0])) {
-                       $this->setAuthType($data[1]);                
-                    
+                       $this->setAuthType($data[1]);
+
                     } elseif (preg_match('/AuthUserFile/i', $data[0])) {
-                       $this->setAuthUserFile($data[1]);            
-                           
+                       $this->setAuthUserFile($data[1]);
+
                     } elseif (preg_match('/AuthGroupFile/i', $data[0])) {
                        $this->setAuthGroupFile($data[1]);
 
@@ -139,7 +139,7 @@ class File_HtAccess {
                        $this->setAuthDigestGroupFile($data[1]);
 
                     } elseif (preg_match('/Require/i', $buffer)) {
-                       $require = split(' ', $data[1]);
+                       $require = explode(' ', $data[1]);
                        $this->addRequire($require);
                     } elseif (trim($buffer)) {
                        $this->addAdditional($buffer);
@@ -149,7 +149,7 @@ class File_HtAccess {
             fclose($fd);
 
         } else {
-            $retval = PEAR::raiseError('Could not open ' . $this->getFile() . 
+            $retval = PEAR::raiseError('Could not open ' . $this->getFile() .
                                        ' for reading.');
         }
 
@@ -172,10 +172,10 @@ class File_HtAccess {
             }
         }
     }
-    
+
     /**
     * Set the value of authname property
-    * 
+    *
     * @access public
     * @param  string $name
     */
@@ -243,7 +243,7 @@ class File_HtAccess {
     * Set the value of require property
     *
     * Parameter can be given as an array or string. If given as a string
-    * the value will be exploded in to an array by using space as a 
+    * the value will be exploded in to an array by using space as a
     * separator.
     *
     * @access public
@@ -291,7 +291,7 @@ class File_HtAccess {
     * Set the value of additional property
     *
     * Additional property is used for all the extra things in .htaccess
-    * file which don't have specific accessor method for them. 
+    * file which don't have specific accessor method for them.
     *
     * @access public
     * @param  array  $additional
@@ -311,7 +311,7 @@ class File_HtAccess {
     function addAdditional($additional='') {
         $this->additional[] = $additional;
     }
-    
+
     /**
     * Set the value of file property
     *
@@ -322,12 +322,12 @@ class File_HtAccess {
     function setFile($file) {
         $this->file = $file;
     }
-    
+
     /**
     * Get the value of authname property
     *
     * @access public
-    * @return string  
+    * @return string
     */
 
     function getAuthName() {
@@ -338,18 +338,18 @@ class File_HtAccess {
     * Get the value of authtype property
     *
     * @access public
-    * @return string  
+    * @return string
     */
 
     function getAuthType() {
         return($this->authtype);
     }
-    
+
     /**
     * Get the value of authuserfile property
     *
     * @access public
-    * @return string  
+    * @return string
     */
 
     function getAuthUserFile() {
@@ -360,7 +360,7 @@ class File_HtAccess {
     * Get the value of authgroupfile property
     *
     * @access public
-    * @return string  
+    * @return string
     */
 
 
@@ -372,7 +372,7 @@ class File_HtAccess {
     * Get the value of authdigestfile property
     *
     * @access public
-    * @return string  
+    * @return string
     */
 
     function getAuthDigestFile() {
@@ -383,7 +383,7 @@ class File_HtAccess {
     * Get the value of authdigestgroupfile property
     *
     * @access public
-    * @return string  
+    * @return string
     */
 
     function getAuthDigestGroupFile() {
@@ -395,9 +395,9 @@ class File_HtAccess {
     *
     * @access public
     * @param  string $type whether to return an array or string
-    * @return mixed  string or array, defaults to an array  
+    * @return mixed  string or array, defaults to an array
     */
- 
+
     function getRequire($type='') {
         $retval = $this->require;
 
@@ -412,7 +412,7 @@ class File_HtAccess {
     *
     * @access public
     * @param  string $type whether to return an array or string
-    * @return mixed  string or array, defaults to an array  
+    * @return mixed  string or array, defaults to an array
     */
 
     function getAdditional($type='') {
@@ -428,7 +428,7 @@ class File_HtAccess {
     * Get the value of file property
     *
     * @access public
-    * @return string  
+    * @return string
     */
 
     function getFile() {
@@ -448,18 +448,18 @@ class File_HtAccess {
         $retval = true;
 
         $str  = $this->getContent();
-        
+
         $fd = @fopen($this->getFile(), 'w');
         if ($fd) {
             fwrite($fd, $str, strlen($str));
         } else {
-            $retval = PEAR::raiseError('Could not open ' . $this->getFile() . 
+            $retval = PEAR::raiseError('Could not open ' . $this->getFile() .
                                        ' for writing.');
 
         }
 
         return($retval);
-        
+
     }
 
     /**
@@ -472,7 +472,7 @@ class File_HtAccess {
     function getContent() {
 
         $retval  = '';
-        
+
         if ($this->getAuthName()) {
             $retval .= 'AuthName '     . $this->getAuthName() . "\n";
         }
@@ -482,19 +482,19 @@ class File_HtAccess {
         if ('basic' == strtolower($this->getAuthType())) {
             $retval .= 'AuthUserFile ' . $this->getAuthUserFile() . "\n";
             if (trim($this->getAuthGroupFile())) {
-                $retval .= 'AuthGroupFile ' . $this->getAuthGroupFile() . "\n";   
+                $retval .= 'AuthGroupFile ' . $this->getAuthGroupFile() . "\n";
             }
         } elseif ('digest' == strtolower($this->getAuthType())) {
             $retval .= 'AuthDigestFile ' . $this->getAuthDigestFile() . "\n";
             if (trim($this->getAuthDigestGroupFile())) {
-                $retval .= 'AuthDigestGroupFile ' . $this->getAuthDigestGroupFile() . "\n";   
+                $retval .= 'AuthDigestGroupFile ' . $this->getAuthDigestGroupFile() . "\n";
             }
         }
         if (trim($this->getRequire('string'))) {
             $retval .= 'Require ' . $this->getRequire('string') . "\n";
         }
         $retval .= $this->getAdditional('string') . "\n";
-        
+
         return($retval);
     }
 

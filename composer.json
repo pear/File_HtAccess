@@ -1,0 +1,28 @@
+{
+    "authors": [
+        {
+            "email": "tuupola@appelsiini.net",
+            "name": "Mika Tuupola",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    },
+    "description": "More info available on: http://pear.php.net/package/File_HtAccess",
+    "license": "BSD",
+    "name": "pear/file_htaccess",
+    "support": {
+        "issues": "http://pear.php.net/bugs/search.php?cmd=display&package_name[]=File_HtAccess",
+        "source": "https://github.com/pear/File_HtAccess"
+    },
+    "type": "library",
+    "require": {
+        "pear/pear_exception": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
